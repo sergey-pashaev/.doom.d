@@ -192,6 +192,8 @@ used."
 (remove-hook 'doom-first-buffer-hook #'smartparens-global-mode)
 (map! :after smartparens
       :map smartparens-mode-map
+      [M-right] nil
+      [M-left] nil
       [C-right] nil
       [C-left] nil)
 
