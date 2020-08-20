@@ -1,0 +1,12 @@
+# -*- mode: snippet -*-
+# contributor: Sergey Pashaev <pashaev.sergey@gmail.com>
+# name: map_remove
+# key: map_remove
+# --
+for (${1:type}::iterator it = ${2:container}.begin(); it != $2.end();) {
+    if (${3:it->second == }$0) {
+       $2.erase(it++);
+    } else {
+       ++it;
+    }
+}

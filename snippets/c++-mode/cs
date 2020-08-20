@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: c_str()
+# key: cs
+# --
+c_str()$0

@@ -1,0 +1,5 @@
+#key : dlis
+#name : dlog info temp string
+#contributor: pashaev.sergey@gmail.com
+# --
+DLOG(INFO) << __func__ << " $0";

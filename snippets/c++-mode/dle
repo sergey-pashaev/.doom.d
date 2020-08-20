@@ -1,0 +1,5 @@
+#key : dle
+#name : dlog info end
+#contributor: pashaev.sergey@gmail.com
+# --
+DLOG(INFO) << this << " E " << __func__;

@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: for const auto
+# key: forca
+# --
+for (const auto& ${1:element} : ${2:sequence}) {
+    $0
+}

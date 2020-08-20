@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# contributor: Sergey Pashaev <pashaev.sergey@gmail.com>
+# name: now
+# key: now
+# --
+auto now = std::chrono::system_clock::now();
+$0

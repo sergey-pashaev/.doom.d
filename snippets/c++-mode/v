@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# contributor: Sergey Pashaev <pashaev.sergey@gmail.com>
+# name: v
+# key: v
+# --
+std::vector<$1> $0

@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# contributor: Sergey Pashaev <pashaev.sergey@gmail.com>
+# name: sline
+# key: sline
+# --
+std::cout << __FILE__ << ":" << __LINE__ << ":" << __func__ << '\n';

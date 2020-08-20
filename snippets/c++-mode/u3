@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# contributor: Sergey Pashaev <pashaev.sergey@gmail.com>
+# name: u3
+# key: u3
+# --
+uint32_t $0

@@ -1,0 +1,5 @@
+#key : sc
+#name : sc
+#contributor: pashaev.sergey@gmail.com
+# --
+static_cast<${1:type}>(${2:value})$0

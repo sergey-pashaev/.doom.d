@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# contributor: Sergey Pashaev <pashaev.sergey@gmail.com>
+# name: serr
+# key: serr
+# --
+std::cerr << $0 << '\n';

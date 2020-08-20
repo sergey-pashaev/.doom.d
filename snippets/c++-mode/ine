@@ -1,0 +1,7 @@
+#key : ine
+#name : if non empty
+#contributor: pashaev.sergey@gmail.com
+# --
+if (!${1:container}.empty()) {
+  $0
+}

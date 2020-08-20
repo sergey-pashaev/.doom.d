@@ -1,0 +1,5 @@
+#key : lflf
+#name : Log File Line Func
+#contributor: pashaev.sergey@gmail.com
+# --
+LoggerMsg(LogDebug, "%s:%d: %s", __FILE__, __LINE__, __func__);

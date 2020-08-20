@@ -1,0 +1,13 @@
+# -*- mode: snippet -*-
+# contributor: Sergey Pashaev <pashaev.sergey@gmail.com>
+# name: sex
+# key: sex
+# --
+
+// ${1:`(file-name-nondirectory (file-name-sans-extension (or (buffer-file-name) "")))`}
+
+// en:
+
+// ru:
+
+$0

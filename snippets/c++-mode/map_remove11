@@ -1,0 +1,12 @@
+# -*- mode: snippet -*-
+# contributor: Sergey Pashaev <pashaev.sergey@gmail.com>
+# name: map_remove11
+# key: map_remove11
+# --
+for (auto it = ${1:container}.begin(); it != $1.end();) {
+    if (${2:it->second == }$0) {
+       it = $1.erase(it);
+    } else {
+       ++it;
+    }
+}

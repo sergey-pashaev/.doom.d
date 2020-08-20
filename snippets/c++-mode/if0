@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: if0
+# key: if0
+# contributor: pashaev.sergey@gmail.com
+# --
+#if 0
+  $0
+#endif

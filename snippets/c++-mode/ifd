@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: ifdef
+# key: ifdef
+# contributor: pashaev.sergey@gmail.com
+# --
+#ifdef ${1:MACRO}
+  `yas-selected-text`$0
+#endif  // $1

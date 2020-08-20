@@ -1,0 +1,6 @@
+#key : dst
+#name : dst
+#contributor: pashaev.sergey@gmail.com
+# --
+base::debug::StackTrace st;
+DLOG(INFO) << this << ' ' << __func__ << '\n' << st.ToString();

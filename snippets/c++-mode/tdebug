@@ -1,0 +1,13 @@
+# -*- mode: snippet -*-
+# contributor: Sergey Pashaev <pashaev.sergey@gmail.com>
+# name: tdebug
+# key: tdebug
+# --
+template <typename T>
+void f() {
+    std::cout << __PRETTY_FUNCTION__ << '\n';
+}
+
+#define EXPLORE(expr)                      \
+    std::cout << "decltype(" #expr ") = "; \
+    f<decltype(expr)>();

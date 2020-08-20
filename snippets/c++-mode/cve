@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: cpptac2 covered enabled code
+# key: cve
+# --
+#ifdef CPPTAC2_COVERED_ENABLED
+#else
+    return ERR_OK;
+#endif /* CPPTAC2_COVERED_ENABLED */

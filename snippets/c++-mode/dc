@@ -1,0 +1,5 @@
+#key : dc
+#name : dc
+#contributor: pashaev.sergey@gmail.com
+# --
+dynamic_cast<${1:type}>(${2:value})$0

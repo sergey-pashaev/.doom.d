@@ -1,0 +1,5 @@
+#key : dlb
+#name : dlog info begin
+#contributor: pashaev.sergey@gmail.com
+# --
+DLOG(INFO) << this << " B " << __func__;

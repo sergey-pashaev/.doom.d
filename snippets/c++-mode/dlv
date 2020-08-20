@@ -1,0 +1,5 @@
+#key : dlv
+#name : dlog info variable
+#contributor: pashaev.sergey@gmail.com
+# --
+DLOG(INFO) << ' ' << __func__ << " ${1:var}: " << $1;

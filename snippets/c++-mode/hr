@@ -1,0 +1,15 @@
+# -*- mode: snippet -*-
+# name: hr
+# key: hr
+# --
+// ${1:task name}
+
+#include <catch2/catch.hpp>
+
+#include <vector>
+
+using namespace std;
+
+TEST_CASE("$1"){
+    $0
+}

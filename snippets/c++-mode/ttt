@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# contributor: Sergey Pashaev <pashaev.sergey@gmail.com>
+# name: ttt
+# key: ttt
+# --
+template <typename ${1:T}>
+$0

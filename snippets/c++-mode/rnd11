@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# contributor: Sergey Pashaev <pashaev.sergey@gmail.com>
+# name: rnd11
+# key: rnd11
+# --
+std::random_device rd;
+std::mt19937 gen(rd());
+std::uniform_int_distribution<${1:type}> dist(${2:from}, ${3:to});
+$0

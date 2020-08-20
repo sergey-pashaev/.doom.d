@@ -1,0 +1,5 @@
+#key : dlip
+#name : dlog info pretty function
+#contributor: pashaev.sergey@gmail.com
+# --
+DLOG(INFO) << __PRETTY_FUNCTION__;

@@ -1,0 +1,7 @@
+#key : iner
+#name : if non empty (region version)
+#contributor: pashaev.sergey@gmail.com
+# --
+if (!${1:container}.empty()) {
+  `yas/selected-text`
+}

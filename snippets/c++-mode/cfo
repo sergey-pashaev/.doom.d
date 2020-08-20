@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: clang format off section
+# key: cfo
+# --
+// clang-format off
+`yas-selected-text`$0
+// clang-format on

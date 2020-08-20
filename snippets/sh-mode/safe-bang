@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: safer bash settings for scripts
+# key: s!
+# --
+#!/usr/bin/env bash
+set -Eeuo pipefail
+IFS=$'\n\t'
+
+$0

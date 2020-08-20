@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# contributor: Sergey Pashaev <pashaev.sergey@gmail.com>
+# name: erase_remove
+# key: erase_remove
+# --
+${1:container}.erase(std::remove(std::begin($1), std::end($1), $0), std::end($1));
