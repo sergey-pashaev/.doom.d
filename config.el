@@ -205,3 +205,6 @@ used."
         org-fontify-whole-heading-line nil
         org-hide-leading-stars nil
         org-startup-indented nil))
+
+;; Disable modern-c++-font-lock-mode
+(remove-hook 'c++-mode-hook #'modern-c++-font-lock-mode)
