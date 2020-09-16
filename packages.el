@@ -52,7 +52,7 @@
 (package! google-translate)
 (package! clang-format)
 (package! cprg :recipe (:host github :repo "sergey-pashaev/cprg"))
-
+(package! rmsbolt)
 
 (package! undo-tree :disable t)
 (package! volatile-highlights :disable t)
