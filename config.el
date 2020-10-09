@@ -22,7 +22,7 @@
 (setq dired-dwim-target t)
 
 ;; Show all files with human readable sizes.
-(setq dired-listing-switches "-alh") ; --group-directories-first
+(setq dired-listing-switches "-alhG") ; --group-directories-first
 
 ;; Stop asking whether to save newly added abbrev when quitting emacs.
 (setq save-abbrevs nil)
