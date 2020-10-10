@@ -238,3 +238,16 @@ used."
   ("C-c ?" . helm-dash-at-point)
   (:map sh-mode-map
         ("C-c ?" . helm-dash-at-point)))
+
+;; c++ style
+(defconst psv/cc-style
+  '("cc-mode"
+    (c-offsets-alist . ((innamespace . [0])))
+    (c-basic-offset . 4)
+    (indent-tabs-mode . nil)))
+
+(c-add-style "psv/cc-mode" psv/cc-style)
+
+(require 'cc-vars)
+(setq c-default-style "psv/cc-mode"
+      c-basic-offset 4)
