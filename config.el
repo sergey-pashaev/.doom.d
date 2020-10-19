@@ -234,6 +234,7 @@ used."
   (setq helm-dash-common-docsets psv/helm-dash-docsets)
   (add-hook 'c++-mode-hook 'psv/helm-dash-cpp-doc)
   (add-hook 'python-mode-hook 'psv/helm-dash-python-doc)
+  (add-hook 'sh-mode-hook 'psv/helm-dash-bash-doc)
   :bind
   ("C-c ?" . helm-dash-at-point)
   (:map sh-mode-map
