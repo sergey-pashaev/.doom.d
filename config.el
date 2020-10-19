@@ -252,3 +252,6 @@ used."
 (require 'cc-vars)
 (setq c-default-style "psv/cc-mode"
       c-basic-offset 4)
+
+;; python
+(setq py-autopep8-options '("--max-line-length=79"))

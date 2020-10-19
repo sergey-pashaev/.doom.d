@@ -54,6 +54,7 @@
 (package! cprg :recipe (:host github :repo "sergey-pashaev/cprg"))
 (package! rmsbolt)
 (package! helm-dash)
+(package! py-autopep8)
 
 (package! undo-tree :disable t)
 (package! volatile-highlights :disable t)
