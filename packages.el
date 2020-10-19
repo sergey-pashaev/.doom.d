@@ -99,3 +99,4 @@
 (package! company-dict :disable t)
 (package! mips-mode :disable t)
 (package! haxor-mode :disable t)
+(package! flycheck-plantuml :disable t)

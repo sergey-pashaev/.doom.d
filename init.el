@@ -73,7 +73,7 @@
         ;;+pomodoro        ; be fruitful with the tomato technique
         ;;+present
         )        ; using org-mode for presentations
-       ;;plantuml          ; diagrams for confusing people more
+       plantuml          ; diagrams for confusing people more
        python       ; beautiful is better than ugly
        ;;rust              ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
        sh                ; she sells {ba,z,fi}sh shells on the C xor
