@@ -72,6 +72,7 @@
         ;;+pandoc          ; export-with-pandoc support
         ;;+pomodoro        ; be fruitful with the tomato technique
         ;;+present
+        +roam
         )        ; using org-mode for presentations
        plantuml          ; diagrams for confusing people more
        python       ; beautiful is better than ugly
