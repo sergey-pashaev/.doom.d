@@ -793,6 +793,48 @@ With passed universal argument it visits file in other window."
               (user-error (format "Move diff failed, rc=%s" rc)))))
       (user-error (format "file [%s] doesn't exist" to-path)))))
 
+(defun yb-overwrite-file-diff ()
+  "Overwrite current file diff/patch to same file in other project."
+  (interactive)
+  (let* ((rel-path (yb-buffer-relative-path))
+         (from-project (projectile-project-root))
+         (from-path (expand-file-name (concat (file-name-as-directory from-project)
+                                              rel-path)))
+         (to-project (yb-select-other-project))
+         (to-path (expand-file-name (concat (file-name-as-directory to-project)
+                                            rel-path))))
+    (if (f-exists? to-path)
+        (progn
+          (message (format "Move diff for [%s] from [%s] to [%s]" rel-path from-project to-project))
+          (let ((rc (call-process-shell-command
+           (format "yb-over-move-diff %s %s %s"
+                   from-project
+                   to-project
+                   rel-path)
+           nil
+           "*yb-over-move-diff-debug*"
+           t)))
+            (when (not (eq rc 0))
+              (user-error (format "Move diff failed, rc=%s" rc)))))
+      (user-error (format "file [%s] doesn't exist" to-path)))))
+
+
+(defun yb-x-at-point ()
+  "Run x at point script."
+  (interactive)
+  (let* ((abs-path (buffer-file-name))
+         (line (line-number-at-pos))
+         (column (current-column))
+         (location (format "%s:%d:%d" abs-path line column))
+         (build-dir (yb-select-build-profile))
+         )
+    (let ((rc (call-process-shell-command (format "yb x --build-profile %s %s"
+                                                  build-dir
+                                                  location)
+                                          nil
+                                          "*yb-x-debug*"
+                                          t))))))
+
 
 ;; hydra
 (defhydra yb-tools (:hint t)
@@ -803,12 +845,14 @@ With passed universal argument it visits file in other window."
   ("g" yb-gn-refs "gn refs")
   ("m" yb-move-file-diff "move diff")
   ("n" yb-goto-ticket-notes "ticket notes")
+  ("o" yb-overwrite-file-diff "overwrite diff")
   ("p" yb-prepare-build "prepare build")
   ("r" yb-reference-hydra/body "line/symbol reference operations" :exit t)
   ("s" yb-goto-ticket-tracker "ticket tracker")
   ("t" yb-trace-action-hydra/body "trace" :exit t)
   ("v" yb-visit-file-other-project "visit other project")
   ("w" yb-goto-ticket-wiki "ticket wiki")
+  ("x" yb-x-at-point "x? at point")
   )
 
 (bind-key "C-c y" 'yb-tools/body)
