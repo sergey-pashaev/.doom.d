@@ -768,6 +768,32 @@ With passed universal argument it visits file in other window."
   (find-file (expand-file-name "~/Yandex.Disk/todo.org"))
   (goto-char (point-max)))
 
+(defun yb-move-file-diff ()
+  "Move current file diff/patch to same file in other project."
+  (interactive)
+  (let* ((rel-path (yb-buffer-relative-path))
+         (from-project (projectile-project-root))
+         (from-path (expand-file-name (concat (file-name-as-directory from-project)
+                                              rel-path)))
+         (to-project (yb-select-other-project))
+         (to-path (expand-file-name (concat (file-name-as-directory to-project)
+                                            rel-path))))
+    (if (f-exists? to-path)
+        (progn
+          (message (format "Move diff for [%s] from [%s] to [%s]" rel-path from-project to-project))
+          (let ((rc (call-process-shell-command
+           (format "yb-move-diff %s %s %s"
+                   from-project
+                   to-project
+                   rel-path)
+           nil
+           "*yb-move-diff-debug*"
+           t)))
+            (when (not (eq rc 0))
+              (user-error (format "Move diff failed, rc=%s" rc)))))
+      (user-error (format "file [%s] doesn't exist" to-path)))))
+
+
 ;; hydra
 (defhydra yb-tools (:hint t)
   "yandex-browser tools"
