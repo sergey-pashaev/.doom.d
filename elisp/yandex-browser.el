@@ -797,17 +797,19 @@ With passed universal argument it visits file in other window."
 ;; hydra
 (defhydra yb-tools (:hint t)
   "yandex-browser tools"
-  ("r" yb-reference-hydra/body "line/symbol reference operations" :exit t)
-  ("g" yb-gn-refs "gn refs")
-  ("c" yb-compile-single-file "compile file")
-  ("t" yb-trace-action-hydra/body "trace" :exit t)
-  ("o" yb-visit-file-other-project "other project")
-  ("n" yb-goto-ticket-notes "ticket notes")
-  ("s" yb-goto-ticket-tracker "ticket tracker")
-  ("w" yb-goto-ticket-wiki "ticket wiki")
   ("a" yb-goto-arch-notes "arch notes")
+  ("c" yb-compile-single-file "compile file")
+  ("d" yb-todo "todo")
+  ("g" yb-gn-refs "gn refs")
+  ("m" yb-move-file-diff "move diff")
+  ("n" yb-goto-ticket-notes "ticket notes")
   ("p" yb-prepare-build "prepare build")
-  ("d" yb-todo "todo"))
+  ("r" yb-reference-hydra/body "line/symbol reference operations" :exit t)
+  ("s" yb-goto-ticket-tracker "ticket tracker")
+  ("t" yb-trace-action-hydra/body "trace" :exit t)
+  ("v" yb-visit-file-other-project "visit other project")
+  ("w" yb-goto-ticket-wiki "ticket wiki")
+  )
 
 (bind-key "C-c y" 'yb-tools/body)
 
