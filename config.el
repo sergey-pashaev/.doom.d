@@ -100,17 +100,18 @@
 (use-package cprg
   :init
   (require 'cprg)
-  (cprg-set-globs "_c_++"          '("*.h" "*.c" "*.cc"))
+  (cprg-set-globs "_c_++"          '("*.h" "*.c" "*.cc" "*.mm"))
   (cprg-set-globs "_t_ests"        '("*unittest.cc" "*test.cc" "*tests.cc"))
   (cprg-set-globs "bro_w_sertests" '("*browsertest.cc" "*browsertests.cc"))
   (cprg-set-globs "_m_ojom"        '("*.mojom"))
-  (cprg-set-globs "_b_uild"        '("*.gn" "DEPS"))
+  (cprg-set-globs "_b_uild"        '("*.gn" "DEPS" "*.gni"))
   (cprg-set-globs "_y_aml"         '("*.yaml" "*.yml"))
-  (cprg-set-globs "_j_ava"         '("*.java"))
+  (cprg-set-globs "_j_ava"         '("*.java" "*.kt"))
   (cprg-set-globs "_p_ython"       '("*.py"))
   (cprg-set-globs "_e_lisp"        '("*.el"))
   (cprg-set-globs "_x_ml"          '("*.xml"))
-  (cprg-set-globs "rea_d_me"          '("*.md"))
+  (cprg-set-globs "rea_d_me"       '("*.md"))
+  (cprg-set-globs "_h_tml"         '("*.html" "*.js" "*.css"))
   (cprg-load-hydra))
 
 
