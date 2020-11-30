@@ -835,6 +835,17 @@ With passed universal argument it visits file in other window."
                                           "*yb-x-debug*"
                                           t))))))
 
+(defun yb-goto-blacklists ()
+  "Open directory with blacklists."
+  (interactive)
+  (let* ((project (projectile-project-root))
+         (rel-path "src/build/yandex/ci/configs/platforms")
+         (abs-path (expand-file-name (concat
+                                      (file-name-as-directory project)
+                                      rel-path))))
+    (dired abs-path)))
+
+
 
 ;; hydra
 (defhydra yb-tools (:hint t)
@@ -843,6 +854,7 @@ With passed universal argument it visits file in other window."
   ("c" yb-compile-single-file "compile file")
   ("d" yb-todo "todo")
   ("g" yb-gn-refs "gn refs")
+  ("l" yb-goto-blacklists "blacklists")
   ("m" yb-move-file-diff "move diff")
   ("n" yb-goto-ticket-notes "ticket notes")
   ("o" yb-overwrite-file-diff "overwrite diff")
