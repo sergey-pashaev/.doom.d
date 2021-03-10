@@ -7,7 +7,7 @@
       user-full-name "Sergey Pashaev")
 
 (setq doom-font (font-spec :family "Liberation Mono" :size 12))
-(setq doom-theme 'doom-solarized-light)
+; (setq doom-theme 'doom-solarized-light)
 (setq doom-inhibit-indent-detection t)
 
 (setq org-directory "~/org/")
