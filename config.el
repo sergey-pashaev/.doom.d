@@ -111,6 +111,7 @@
   (cprg-set-globs "_e_lisp"        '("*.el"))
   (cprg-set-globs "_x_ml"          '("*.xml"))
   (cprg-set-globs "rea_d_me"       '("*.md"))
+  (cprg-set-globs "js_o_n"         '("*.json"))
   (cprg-set-globs "_h_tml"         '("*.html" "*.js" "*.css"))
   (cprg-set-globs "_g_radle"       '("*.gradle"))
   (cprg-load-hydra))
