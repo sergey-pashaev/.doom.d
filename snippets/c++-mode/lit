@@ -2,4 +2,4 @@
 #name : log info this
 #contributor: pashaev.sergey@gmail.com
 # --
-LOG(INFO) << this << ' ' << __func__;
+LOG(ERROR) << this << ' ' << __func__;

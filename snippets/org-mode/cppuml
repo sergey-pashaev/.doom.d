@@ -1,0 +1,11 @@
+# key: cppuml
+# name: cppuml
+# --
+#+begin_src plantuml :file $1.svg
+/' settings '/
+title $2
+set namespaceSeparator ::
+/' connections '/
+/' classes '/
+$0
+#+end_src

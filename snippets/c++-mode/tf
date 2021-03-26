@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# contributor: Sergey Pashaev <pashaev.sergey@gmail.com>
+# name: tf
+# key: tf
+# --
+TRACE_EVENT0("custo", "bioh." __func__);

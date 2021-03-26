@@ -1,0 +1,11 @@
+# key: uml
+# name: uml
+# --
+#+begin_src plantuml :file $1.svg
+/' connections '/
+/' classes '/
+$0
+#+end_src
+
+#+RESULTS:
+[[file:$1.svg]]

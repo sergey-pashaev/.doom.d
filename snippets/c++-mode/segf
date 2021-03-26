@@ -1,0 +1,8 @@
+#key : segf
+#name : segf
+#contributor: pashaev.sergey@gmail.com
+# --
+{
+    int x = 0;
+    DLOG(INFO) << this << ' ' << __func__ << 1/x;
+}
