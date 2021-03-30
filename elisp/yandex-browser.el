@@ -46,6 +46,17 @@ Read branch name from minibuffer if called with prefix argument."
   "Return org link to URL with TEXT."
   (format "[[%s][%s]]" url text))
 
+(defun yb-search-term (term)
+  "Encode search TERM for yb link into base64."
+  (interactive)
+  (base64-encode-string term t))
+
+(defun yb-org-roam-link (url &optional desc)
+  "Return org-roam link to URL with optional DESC."
+  (if desc
+      (format "[[yb:%s:%s][%s]]" url (yb-search-term desc) desc)
+    (format "[[yb:%s]]" url)))
+
 (defun yb-what-project (&optional root)
   "Return type of browser project for ROOT path.
 Returns 'chromium, 'yandex-browser or nil if other."
@@ -129,6 +140,13 @@ Returns 'chromium, 'yandex-browser or nil if other."
     (yb-put-to-clipboard (yb-org-link url text))
     (message "Chromium url for org-mode copied.")))
 
+(defun chromium-copy-file-reference-roam ()
+  "Copy current file reference to kill ring as org-roam link."
+  (interactive)
+  (let ((url (yb-org-roam-link (chromium-buffer-relative-path))))
+    (yb-put-to-clipboard url)
+    (message "%s for org-roam copied." url)))
+
 (defun chromium-browse-symbol-reference ()
   "Open current symbol in browser."
   (interactive)
@@ -200,6 +218,26 @@ Returns 'chromium, 'yandex-browser or nil if other."
     (yb-put-to-clipboard (yb-org-link url text))
     (message "Url for org-mode copied.")))
 
+(defun yb-reference-roam-desc ()
+  "Return current line or selected region text w/o properties."
+  (interactive)
+  (s-trim  (if (use-region-p)
+               (buffer-substring-no-properties (region-beginning)
+                                               (region-end))
+             (buffer-substring-no-properties (line-beginning-position)
+                                             (line-end-position)))))
+
+(defun yb-copy-file-reference-roam ()
+  "Copy current file reference to kill ring as org-roam link."
+  (interactive)
+  (let* ((rel-path (yb-yandex-buffer-relative-path))
+         (path (if (s-starts-with? "src/" rel-path)
+                   (substring rel-path (length "src/"))
+                 rel-path))
+         (url (yb-org-roam-link path (yb-reference-roam-desc))))
+    (yb-put-to-clipboard url)
+    (message "%s for org-roam copied." url)))
+
 (defun yb-browse-line-reference ()
   "Open current line in browser."
   (interactive)
@@ -214,6 +252,14 @@ Returns 'chromium, 'yandex-browser or nil if other."
       (chromium-copy-symbol-reference))
      ((eq project 'yandex-browser)
       (yb-copy-line-reference)))))
+
+(defun yb-copy-reference-roam()
+  "Copy current file reference to kill ring as org-roam link."
+  (interactive)
+  (let ((project (yb-what-project)))
+    (cond
+     ((eq project 'chromium) (chromium-copy-file-reference-roam))
+     ((eq project 'yandex-browser) (yb-copy-file-reference-roam)))))
 
 (defun yb-copy-reference-org ()
   "Copy current line/symbol reference to kill ring as org link."
@@ -233,6 +279,7 @@ Returns 'chromium, 'yandex-browser or nil if other."
 
 (defhydra yb-reference-hydra (:hint t)
   "Current line operations"
+  ("r" yb-copy-reference-roam "copy url for org-roam")
   ("c" yb-copy-reference "copy url")
   ("o" yb-copy-reference-org "copy url for org-mode")
   ("g" yb-browse-reference "open url in browser"))
