@@ -948,5 +948,8 @@ With passed universal argument it visits file in other window."
 
 (bind-key "C-c y" 'yb-tools/body)
 
+;; TODO: check branch -> find notes
+;; TODO: check notes -> find branch & repo
+
 (provide 'yandex-browser)
 ;;; yandex-browser.el ends here
