@@ -892,6 +892,38 @@ With passed universal argument it visits file in other window."
                                       rel-path))))
     (dired abs-path)))
 
+(defun yb-goto-yb-link (path-in)
+  "Goto yb:PATH-IN link."
+  (let* ((path (car (s-split ":" path-in)))
+         (search-term (cadr (s-split ":" path-in)))
+         (project (yb-select-other-project))
+         (project-type (yb-what-project project))
+         (abs-path (concat project
+                           (cond
+                            ((eq project-type 'chromium) path)
+                            ((eq project-type 'yandex-browser) (concat "src/" path))))))
+    (if (f-exists? abs-path)
+        (progn
+          (find-file abs-path)
+          (when search-term
+            (message "search for: %s" (base64-decode-string search-term))
+            (goto-line (point-min))
+            (search-forward (s-replace "\"" "" (base64-decode-string search-term))
+                            nil
+                            nil)))
+      (user-error (format "file [%s] doesn't exist" abs-path)))))
+
+(setq org-link-abbrev-alist
+      '(("github"      . "https://github.com/%s")
+        ("youtube"     . "https://youtube.com/watch?v=%s")
+        ("google"      . "https://google.com/search?q=")
+        ("gimages"     . "https://google.com/images?q=%s")
+        ("gmap"        . "https://maps.google.com/maps?q=%s")
+        ("duckduckgo"  . "https://duckduckgo.com/?q=%s")
+        ("wikipedia"   . "https://en.wikipedia.org/wiki/%s")
+        ("wolfram"     . "https://wolframalpha.com/input/?i=%s")
+        ("yb"          . "elisp:(yb-goto-yb-link \"%s\")")
+        ("doom-repo"   . "https://github.com/hlissner/doom-emacs/%s")))
 
 
 ;; hydra
