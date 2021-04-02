@@ -247,14 +247,21 @@ used."
 (defconst psv/cc-style
   '("cc-mode"
     (c-offsets-alist . ((innamespace . [0])))
-    (c-basic-offset . 4)
+    (c-basic-offset . 2)
     (indent-tabs-mode . nil)))
 
 (c-add-style "psv/cc-mode" psv/cc-style)
 
 (require 'cc-vars)
 (setq c-default-style "psv/cc-mode"
-      c-basic-offset 4)
+      c-basic-offset 2)
 
 ;; python
 (setq py-autopep8-options '("--max-line-length=79"))
+
+;; ERT
+(require 'ert)
+
+(defun psv/ert-silently ()
+  (interactive)
+  (ert t))
