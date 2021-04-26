@@ -1,0 +1,5 @@
+#key : dlits
+#name : dlog info this and string
+#contributor: pashaev.sergey@gmail.com
+# --
+DLOG(INFO) << this << ' ' << __func__ << " $0";
