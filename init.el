@@ -64,7 +64,7 @@
        ;;emacs-lisp        ; drown in parentheses
        ;;go                ; the hipster dialect
        ;;ledger            ; an accounting system in Emacs
-       ;;markdown          ; writing docs for people to ignore
+       markdown          ; writing docs for people to ignore
        (org              ; organize your plain life in plain text
         ;;+dragndrop       ; drag & drop files/images into org buffers
         ;;+hugo            ; use Emacs for hugo blogging
