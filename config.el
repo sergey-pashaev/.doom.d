@@ -239,9 +239,7 @@ used."
   (add-hook 'python-mode-hook 'psv/helm-dash-python-doc)
   (add-hook 'sh-mode-hook 'psv/helm-dash-bash-doc)
   :bind
-  ("C-c ?" . helm-dash-at-point)
-  (:map sh-mode-map
-        ("C-c ?" . helm-dash-at-point)))
+  ("C-c ?" . helm-dash-at-point))
 
 ;; c++ style
 (defconst psv/cc-style
