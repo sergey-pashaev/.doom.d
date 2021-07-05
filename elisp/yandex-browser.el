@@ -709,7 +709,7 @@ With passed universal argument it visits file in other window."
 (defun yb-goto-arch-notes ()
   "Go to arch notes."
   (interactive)
-  (let ((path (expand-file-name "~/Yandex.Disk/notes/arch/")))
+  (let ((path (expand-file-name "~/workspace/ya/notes/arch/")))
     (when (not (file-directory-p path))
       (dired-create-directory path))
     (dired path)))
@@ -717,7 +717,7 @@ With passed universal argument it visits file in other window."
 (defun yb-goto-global-notes ()
   "Go to global notes."
   (interactive)
-  (let* ((dir (expand-file-name "~/Yandex.Disk/notes/"))
+  (let* ((dir (expand-file-name "~/workspace/ya/notes/"))
          (notes (concat dir "todo.org")))
     (when (not (file-directory-p dir))
       (dired-create-directory dir)
@@ -731,7 +731,7 @@ With passed universal argument it visits file in other window."
 (defun yb-goto-ticket-notes ()
   "Go to ticket notes notes."
   (interactive)
-  (let* ((dir (expand-file-name "~/Yandex.Disk/notes/"))
+  (let* ((dir (expand-file-name "~/workspace/ya/notes/"))
          (contents (directory-files dir))
          (ticket (ido-completing-read "Ticket? "
                                       (cl-remove-if-not (lambda (name) (file-directory-p (concat dir name))) ; include directories only
@@ -877,7 +877,7 @@ With passed universal argument it visits file in other window."
 (defun yb-todo ()
   "Go to end of browser todo list."
   (interactive)
-  (find-file (expand-file-name "~/Yandex.Disk/todo.org"))
+  (find-file (expand-file-name "~/workspace/ya/todo.org"))
   (goto-char (point-max)))
 
 (defun yb-move-file-diff ()
