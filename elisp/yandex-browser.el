@@ -21,6 +21,8 @@
   '(
     (link . ox-st-link)
     (headline . ox-st-headline)
+    (code . ox-st-verbatim)
+    (verbatim . ox-st-verbatim)
     ))
 
 (defun ox-st-export-as-st (&optional async subtreep visible-only)
@@ -28,6 +30,9 @@
   (org-export-to-buffer 'st "*Org ST: export*"
     async subtreep visible-only nil nil (lambda () (text-mode))))
 
+(defun ox-st-verbatim (verbatim _contents _info)
+  (let ((value (org-element-property :value verbatim)))
+    (format "##%s##" value)))
 
 (defconst ox-st-link-rx "(yb-goto-yb-link \"\\(.*\\)\")")
 
