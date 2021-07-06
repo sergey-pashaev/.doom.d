@@ -11,6 +11,10 @@
 (require 'magit)
 
 ;; common
+(defun yb-get-branch ()
+  "Return current git branch."
+  (magit-get-current-branch))
+
 (defun yb-read-branch ()
   "Return current git branch.
 Read branch name from minibuffer if called with prefix argument."
@@ -476,7 +480,7 @@ List all gn refs that using current file in *yb-gn-refs* buffer."
      filepath
      line-text
      line-num
-     (magit-get-current-branch)
+     (yb-get-branch)
      nil
      cur-symbol)))
 
@@ -637,7 +641,7 @@ With passed universal argument it visits file in other window."
 (defun yb-guess-ticket ()
   "Guess current ticket from branch."
   (interactive)
-  (let* ((branch (magit-get-current-branch))
+  (let* ((branch (yb-get-branch))
          (m (string-match "[A-Z]\\{2,\\}-[0-9]+" branch)))
     (match-string 0 branch)))
 
