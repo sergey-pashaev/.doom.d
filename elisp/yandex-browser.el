@@ -49,21 +49,24 @@
   (let* ((type (org-element-property :type link))
          (raw-path (org-element-property :path link))
          (desc (if desc desc "")))
-    (if (and (string= type "elisp")
-             (string-match ox-st-link-rx raw-path))
-        (let* ((parts (s-split ":" (substring raw-path 18 -2)))
-               (path (nth 0 parts))
-               (line (nth 1 parts))
-               (branch (nth 2 parts))
-               (search-term (base64-decode-string (nth 3 parts))))
-          (format ox-st-line-reference-url-format
-                  ox-st-project-url
-                  path
-                  (url-hexify-string branch)
-                  line
-                  search-term
-                  ))
-      (org-md-link link desc info))))
+    (cond
+     ((member type '("http" "https"))
+      (format "((%s:%s))" type raw-path))
+     ((member type '("elisp"))
+      (if (and (string= type "elisp")
+               (string-match ox-st-link-rx raw-path))
+          (let* ((parts (s-split ":" (substring raw-path 18 -2)))
+                 (path (nth 0 parts))
+                 (line (nth 1 parts))
+                 (branch (nth 2 parts))
+                 (search-term (base64-decode-string (nth 3 parts))))
+            (format ox-st-line-reference-url-format
+                    ox-st-project-url
+                    path
+                    (url-hexify-string branch)
+                    line
+                    search-term
+                    )))))))
 
 (provide 'ox-st)
 
