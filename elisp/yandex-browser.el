@@ -10,6 +10,63 @@
 (require 'subr-x)
 (require 'magit)
 
+(require 'ox-md)
+
+(org-export-define-derived-backend 'st 'md
+  :menu-entry
+  '(?y "Export to Startrek"
+       ((?y "To temporary buffer"
+            (lambda (a s v b) (ox-st-export-as-st a s v)))))
+  :translate-alist
+  '(
+    (link . ox-st-link)
+    (headline . ox-st-headline)
+    ))
+
+(defun ox-st-export-as-st (&optional async subtreep visible-only)
+  (interactive)
+  (org-export-to-buffer 'st "*Org ST: export*"
+    async subtreep visible-only nil nil (lambda () (text-mode))))
+
+
+(defconst ox-st-link-rx "(yb-goto-yb-link \"\\(.*\\)\")")
+
+(defconst ox-st-project-url "https://bitbucket.browser.yandex-team.ru/projects/STARDUST/repos/browser")
+(defconst ox-st-line-reference-url-format "((%s/browse/src/%s?at=refs%%2Fheads%%2F%s#%s %s))"
+  "Line reference in repo browser url format.
+1. project url string
+2. filepath string
+3. branch string
+4. line number
+5. desc")
+
+(defun ox-st-headline (headline desc info)
+  (let ((title (org-element-property :raw-value headline))
+        (level (org-element-property :level headline)))
+    (concat (format "===== %s\n" title) desc)))
+
+(defun ox-st-link (link desc info)
+  (let* ((type (org-element-property :type link))
+         (raw-path (org-element-property :path link))
+         (desc (if desc desc "")))
+    (if (and (string= type "elisp")
+             (string-match ox-st-link-rx raw-path))
+        (let* ((parts (s-split ":" (substring raw-path 18 -2)))
+               (path (nth 0 parts))
+               (line (nth 1 parts))
+               (branch (nth 2 parts))
+               (search-term (base64-decode-string (nth 3 parts))))
+          (format ox-st-line-reference-url-format
+                  ox-st-project-url
+                  path
+                  (url-hexify-string branch)
+                  line
+                  search-term
+                  ))
+      (org-md-link link desc info))))
+
+(provide 'ox-st)
+
 ;; common
 (defun yb-get-branch ()
   "Return current git branch."
