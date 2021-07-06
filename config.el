@@ -257,6 +257,11 @@ used."
 ;; python
 (setq py-autopep8-options '("--max-line-length=79"))
 
+;; clipetty
+(use-package clipetty
+  :ensure t
+  :hook (after-init . global-clipetty-mode))
+
 ;; ERT
 (require 'ert)
 

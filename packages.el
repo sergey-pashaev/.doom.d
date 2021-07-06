@@ -56,6 +56,7 @@
 (package! helm-dash)
 (package! py-autopep8)
 (package! ledger-mode)
+(package! clipetty)
 
 (package! undo-tree :disable t)
 (package! volatile-highlights :disable t)
