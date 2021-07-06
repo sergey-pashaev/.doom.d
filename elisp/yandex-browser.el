@@ -960,10 +960,11 @@ With passed universal argument it visits file in other window."
 (defun yb-goto-yb-link (path-in)
   "Goto yb:PATH-IN link."
   (let* ((parts (s-split ":" path-in))
+         (len (length parts))
          (path (nth 0 parts))
-         (line (nth 1 parts))
-         (branch (nth 2 parts))
-         (search-term (nth 3 parts))
+         (line (if (> len 2) (nth 1 parts) 0))
+         (branch (if (> len 2) (nth 2 parts) "master"))
+         (search-term (if (> len 2) (nth 3 parts) (nth 1 parts)))
          (project (yb-select-other-project))
          (project-type (yb-what-project project))
          (abs-path (concat project
