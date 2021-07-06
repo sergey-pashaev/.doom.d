@@ -55,11 +55,11 @@ Read branch name from minibuffer if called with prefix argument."
   (interactive)
   (base64-encode-string term t))
 
-(defun yb-org-roam-link (url &optional desc)
+(defun yb-org-roam-link (url line-num branch &optional desc)
   "Return org-roam link to URL with optional DESC."
   (if desc
-      (format "[[yb:%s:%s][%s]]" url (yb-search-term desc) desc)
-    (format "[[yb:%s]]" url)))
+      (format "[[yb:%s:%d:%s:%s][%s]]" url line-num branch (yb-search-term desc) desc)
+    (format "[[yb:%s:%d:%s]]" url line-num branch)))
 
 (defun yb-what-project (&optional root)
   "Return type of browser project for ROOT path.
@@ -147,7 +147,9 @@ Returns 'chromium, 'yandex-browser or nil if other."
 (defun chromium-copy-file-reference-roam ()
   "Copy current file reference to kill ring as org-roam link."
   (interactive)
-  (let ((url (yb-org-roam-link (chromium-buffer-relative-path))))
+  (let* ((line-num (line-number-at-pos (point)))
+         (branch (yb-get-branch))
+         (url (yb-org-roam-link (chromium-buffer-relative-path) line-num branch)))
     (yb-put-to-clipboard url)
     (message "%s for org-roam copied." url)))
 
@@ -238,7 +240,9 @@ Returns 'chromium, 'yandex-browser or nil if other."
          (path (if (s-starts-with? "src/" rel-path)
                    (substring rel-path (length "src/"))
                  rel-path))
-         (url (yb-org-roam-link path (yb-reference-roam-desc))))
+         (line-num (line-number-at-pos (point)))
+         (branch (yb-get-branch))
+         (url (yb-org-roam-link path line-num branch (yb-reference-roam-desc))))
     (yb-put-to-clipboard url)
     (message "%s for org-roam copied." url)))
 
@@ -898,8 +902,11 @@ With passed universal argument it visits file in other window."
 
 (defun yb-goto-yb-link (path-in)
   "Goto yb:PATH-IN link."
-  (let* ((path (car (s-split ":" path-in)))
-         (search-term (cadr (s-split ":" path-in)))
+  (let* ((parts (s-split ":" path-in))
+         (path (nth 0 parts))
+         (line (nth 1 parts))
+         (branch (nth 2 parts))
+         (search-term (nth 3 parts))
          (project (yb-select-other-project))
          (project-type (yb-what-project project))
          (abs-path (concat project
