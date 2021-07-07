@@ -23,12 +23,20 @@
     (headline . ox-st-headline)
     (code . ox-st-verbatim)
     (verbatim . ox-st-verbatim)
+    (example-block . ox-st-example-block)
+    (src-block . ox-st-example-block)
     ))
 
 (defun ox-st-export-as-st (&optional async subtreep visible-only)
   (interactive)
   (org-export-to-buffer 'st "*Org ST: export*"
     async subtreep visible-only nil nil (lambda () (text-mode))))
+
+(defun ox-st-example-block (block desc info)
+ (let ((lang (org-element-property :language block))
+        (body (org-remove-indentation
+               (org-export-format-code-default block info))))
+   (format "%%%%%s\n%s%%%%" (if lang (concat "(" lang ")") "") body)))
 
 (defun ox-st-verbatim (verbatim _contents _info)
   (let ((value (org-element-property :value verbatim)))
