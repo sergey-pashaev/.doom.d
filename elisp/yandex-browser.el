@@ -358,12 +358,24 @@ Returns 'chromium, 'yandex-browser or nil if other."
      ((eq project 'chromium) (chromium-browse-symbol-reference))
      ((eq project 'yandex-browser) (yb-browse-line-reference)))))
 
+(defun yb-copy-reference-x ()
+  "Defun eXtra url copy."
+  (interactive)
+  (progn
+    (yb-copy-reference-roam)
+    (let ((roam-url (current-kill 0 t)))
+      (yb-copy-reference-org)
+      (let ((url (current-kill 0 t)))
+        (yb-put-to-clipboard (format "- bb:    %s\n- local: %s\n" url roam-url))))))
+
 (defhydra yb-reference-hydra (:hint t)
   "Current line operations"
   ("r" yb-copy-reference-roam "copy url for org-roam")
   ("c" yb-copy-reference "copy url")
   ("o" yb-copy-reference-org "copy url for org-mode")
-  ("g" yb-browse-reference "open url in browser"))
+  ("g" yb-browse-reference "open url in browser")
+  ("x" yb-copy-reference-x "eXtra copy")
+  )
 
 ;; yandex buttons
 (defconst yb-tracker-format "https://st.yandex-team.ru/%s"
