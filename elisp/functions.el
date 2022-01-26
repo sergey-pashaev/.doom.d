@@ -10,7 +10,7 @@
                    (directory-files-recursively dir org-agenda-file-regexp))
                  dirs)))
 
-(defvar psv/org-agenda-dirs '("~/Yandex.Disk/notes/" "~/org/")
+(defvar psv/org-agenda-dirs '("~/workspace/ya/notes/")
   "List of directories to search org files.")
 
 (defun psv/update-org-agenda-files ()
