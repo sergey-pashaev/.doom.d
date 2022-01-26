@@ -64,7 +64,7 @@
          (desc (if desc desc "")))
     (cond
      ((member type '("http" "https"))
-      (format "((%s:%s))" type raw-path))
+      (format "((%s:%s %s))" type raw-path desc))
      ((member type '("elisp"))
       (if (and (string= type "elisp")
                (string-match ox-st-link-rx raw-path))
