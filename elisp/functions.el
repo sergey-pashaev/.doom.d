@@ -65,5 +65,100 @@ there's a region, all lines that region covers will be duplicated."
   (when str
     (kill-new str)))
 
+(defun psv/pos-at-line-beg (l)
+  "Return end position (point) of line number L."
+  (save-excursion
+    (goto-char (point-min))
+    (forward-line l)
+    (beginning-of-line)
+    (point)))
+
+(defun psv/pos-at-line-end (l)
+  "Return beginning position (point) of line number L."
+  (save-excursion
+    (goto-char (point-min))
+    (forward-line l)
+    (end-of-line)
+    (point)))
+
+(defun psv/hl-regions (regions)
+  "Highlight list of REGIONS."
+  (dolist (r regions)
+    (psv/hl-region (car r) (cadr r))))
+
+(defun psv/hl-regions-clear (regions)
+  "Clear highlight of list of REGIONS."
+  (dolist (r regions)
+    (psv/hl-region-del (car r) (cadr r))))
+
+(defun psv/hl-region (beg end)
+  "Highlight region from BEG point to END point."
+  (message "hl region lines: %d %d" beg end)
+  (let ((overlay (make-overlay
+                  (psv/pos-at-line-beg beg)
+                  (psv/pos-at-line-end end))))
+    (overlay-put overlay 'yb-blame-gap t) ; mark our overlay to distinct from others
+    (overlay-put overlay 'face '(:background "pale green"))))
+
+(defun psv/hl-region-del (beg end)
+  "Remove all overlays from BEG point to END point."
+  (remove-overlays (psv/pos-at-line beg) (psv/pos-at-line end)))
+
+(defun yb-blame-gap-next ()
+  "Go to next blame gap region."
+  (interactive)
+  (let ((p (point))
+         (overlays (overlays-in (point-min) (point-max))))
+    (catch 'foo
+    (dolist (ov overlays)
+      (when (and (overlay-get ov 'yb-blame-gap)
+                 (> (overlay-start ov) p))
+        (goto-char (overlay-start ov))
+        (throw 'foo nil))))))
+
+(defun yb-blame-gap-prev ()
+  "Go to previous blame gap region."
+  (interactive)
+  (let ((p (point))
+         (overlays (overlays-in (point-min) (point-max))))
+    (catch 'foo
+    (dolist (ov overlays)
+        (when (and (overlay-get ov 'yb-blame-gap)
+                   (< (overlay-start ov) p))
+          (goto-char (overlay-start ov))
+          (throw 'foo nil))))))
+
+(defun yb-blame-gap-init ()
+  "Highlight blame gap regions."
+  (interactive)
+  (let* ((root (magit-toplevel))
+        (path (magit-file-relative-name))
+        (ranges (shell-command-to-string (format "yb-blame-gap.py %s %s"
+                                                 root path))))
+    (dolist (r (split-string ranges "\n" t))
+      (let ((range (read (concat "(" r ")"))))
+        (psv/hl-region (car range) (cadr range))))))
+
+(defun yb-blame-gap-clear ()
+  "Remove all blame gap regions."
+  (interactive)
+    (let ((overlays (overlays-in (point-min) (point-max))))
+      (dolist (ov overlays)
+          (when (overlay-get ov 'yb-blame-gap)
+            (delete-overlay ov)))))
+
+;;;###autoload
+(define-minor-mode yb-blame-gap-mode
+  "Highlight areas where you can insert code w/o cc."
+  :lighter " YBG"
+  :keymap (let ((map (make-sparse-keymap)))
+            (define-key map (kbd "C-n") 'yb-blame-gap-next)
+            (define-key map (kbd "C-p") 'yb-blame-gap-prev)
+            (define-key map (kbd "q") 'yb-blame-gap-clear)
+            map)
+  (yb-blame-gap-init))
+
+(provide 'yb-blame-gap-mode)
+
 (provide 'functions)
 ;;; functions.el ends here
