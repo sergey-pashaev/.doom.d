@@ -957,22 +957,50 @@ With passed universal argument it visits file in other window."
               (user-error (format "Move diff failed, rc=%s" rc)))))
       (user-error (format "file [%s] doesn't exist" to-path)))))
 
-
 (defun yb-x-at-point ()
-  "Run x at point script."
+  "Run yb x script at current point location."
   (interactive)
   (let* ((abs-path (buffer-file-name))
          (line (line-number-at-pos))
          (column (current-column))
          (location (format "%s:%d:%d" abs-path line column))
          (build-dir (yb-select-build-profile))
-         )
-    (let ((rc (call-process-shell-command (format "yb x --build-profile %s %s"
-                                                  build-dir
-                                                  location)
+         (rc (call-process-shell-command
+              (format "yb x --build-profile %s --location %s"
+                      build-dir
+                      location)
+              nil
+              "*yb-x-debug*"
+              t)))))
+
+(defun yb-x-uml ()
+  "Show current yb x state as uml diagram."
+  (interactive)
+  ;; Recreate uml buffer.
+  (let ((bname "*yb-x-uml*"))
+    (when (get-buffer bname)
+      (kill-buffer bname))
+    (get-buffer-create bname)
+    ;; Convert current yb x json to plantuml.
+    (let ((rc (call-process-shell-command "yb x --uml | plantuml -p"
                                           nil
-                                          "*yb-x-debug*"
-                                          t))))))
+                                          bname
+                                          t)))
+      ;; Switch to buffer on success & enable image mode.
+      (when (= rc 0)
+        (switch-to-buffer bname)
+        (image-mode)
+        (goto-char (point-min))))))
+
+(defun yb-x-clear ()
+  "Drop current yb x state."
+  (interactive)
+  (let ((rc (call-process-shell-command "yb x --clear"
+                                          nil
+                                          nil
+                                          t)))
+    (when (= rc 0)
+      (message "yb x state cleared"))))
 
 (defun yb-goto-blacklists ()
   "Open directory with blacklists."
@@ -1067,3 +1095,5 @@ With passed universal argument it visits file in other window."
 
 (provide 'yandex-browser)
 ;;; yandex-browser.el ends here
+
+;; TODO сделать так, что когда мы в тикете - поискать репозиторий в котором есть релевантная ветка и запустить поиск там.
