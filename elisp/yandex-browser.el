@@ -1021,6 +1021,24 @@ With passed universal argument it visits file in other window."
         ("yb"          . "elisp:(yb-goto-yb-link \"%s\")")
         ("doom-repo"   . "https://github.com/hlissner/doom-emacs/%s")))
 
+(defun yb-search-buffer-p ()
+  "Return non-nil if current buffer is search (ripgrep) buffer."
+  (let* ((name (buffer-name)))
+    (s-starts-with-p "*ripgrep-search*" name)))
+
+(defun yb-get-notes-dir ()
+  "Return path to selected or guessed ticket notes."
+  (let* ((ticket (yb-guess-ticket))
+         (path (concat yb-notes-path ticket)))
+    (file-name-as-directory path)))
+
+(defun yb-save-search ()
+  "Save current search buffer to current ticekt notes."
+  (interactive)
+  (when (yb-search-buffer-p)
+    (let* ((notes-dir (yb-get-notes-dir))
+           (name (read-string "Name: ")))
+      (write-file (concat notes-dir name)))))
 
 ;; hydra
 (defhydra yb-tools (:hint t)
