@@ -437,6 +437,7 @@ Returns 'chromium, 'yandex-browser or nil if other."
               'magit-insert-revision-message--yandex-buttons))
 
 ;; gn refs buffer
+(defconst yb-notes-path (expand-file-name "~/workspace/ya/notes/"))
 (defconst yb-depot-tools-path (expand-file-name "~/workspace/ya/depot_tools/"))
 (defconst yb-gn-path (expand-file-name "gn" yb-depot-tools-path))
 (defconst yb-chromium-depot-tools-path (expand-file-name "~/workspace/ya/chromium_depot_tools/"))
@@ -726,13 +727,23 @@ With passed universal argument it visits file in other window."
 
 (bind-key "C-c >" 'yb-visit-file-other-project)
 
-;; ticket dir
 (defun yb-guess-ticket ()
   "Guess current ticket from branch."
   (interactive)
-  (let* ((branch (yb-get-branch))
-         (m (string-match "[A-Z]\\{2,\\}-[0-9]+" branch)))
-    (match-string 0 branch)))
+  (let* ((filename (buffer-name))
+         (filepath (yb-buffer-path))
+         (branch (yb-get-branch))
+         (ticket-rx "[A-Z]\\{2,\\}-[0-9]+"))
+    (cond
+     ;; try filename first
+     ((and filename(string-match ticket-rx filename)) (match-string 0 filename))
+     ;; then path to current file
+     ((and filepath (string-match ticket-rx filepath)) (match-string 0 filepath))
+     ;; then current git branch might help
+     ((and (string-match ticket-rx branch)) (match-string 0 branch))
+     ;; ask user if nothing found
+     (t (let* ((ticket (yb-complete-dir yb-notes-path "Ticket?")))
+          ticket)))))
 
 (defun yb-goto-arch-notes ()
   "Go to arch notes."
@@ -745,7 +756,7 @@ With passed universal argument it visits file in other window."
 (defun yb-goto-global-notes ()
   "Go to global notes."
   (interactive)
-  (let* ((dir (expand-file-name "~/workspace/ya/notes/"))
+  (let* ((dir yb-notes-path)
          (notes (concat dir "todo.org")))
     (when (not (file-directory-p dir))
       (dired-create-directory dir)
@@ -759,14 +770,8 @@ With passed universal argument it visits file in other window."
 (defun yb-goto-ticket-notes ()
   "Go to ticket notes notes."
   (interactive)
-  (let* ((dir (expand-file-name "~/workspace/ya/notes/"))
-         (contents (directory-files dir))
-         (ticket (ido-completing-read "Ticket? "
-                                      (cl-remove-if-not (lambda (name) (file-directory-p (concat dir name))) ; include directories only
-                                                        contents)
-                                      nil
-                                      nil
-                                      (yb-guess-ticket)))
+  (let* ((dir yb-notes-path)
+         (ticket (yb-guess-ticket))
          (path (concat dir ticket))
          (notes (concat path (format "/%s.org" ticket))))
     (when (not (file-directory-p path))
@@ -781,12 +786,9 @@ With passed universal argument it visits file in other window."
 (defun yb-goto-ticket-tracker ()
   "Go to ticket in tracker."
   (interactive)
-  (let* ((name (buffer-name))
-         (match (string-match "[A-Z]\\{2,\\}-[0-9]+" name)))
-    (when match
-      (let* ((ticket (match-string 0 name))
-             (url (format yb-tracker-format ticket)))
-        (browse-url url)))))
+  (let* ((ticket (yb-guess-ticket))
+         (url (format yb-tracker-format ticket)))
+        (browse-url url)))
 
 (defconst yb-wiki-format "https://wiki.yandex-team.ru/users/bioh/browser/notes/%s/"
   "Wiki URL format.
@@ -795,12 +797,9 @@ With passed universal argument it visits file in other window."
 (defun yb-goto-ticket-wiki ()
   "Go to ticket in wiki."
   (interactive)
-  (let* ((name (buffer-name))
-         (match (string-match "[A-Z]\\{2,\\}-[0-9]+" name)))
-    (when match
-      (let* ((ticket (match-string 0 name))
-             (url (format yb-wiki-format ticket)))
-        (browse-url url)))))
+  (let* ((ticket (yb-guess-ticket))
+         (url (format yb-wiki-format ticket)))
+        (browse-url url)))
 
 ;; compile single file
 (defun yb-select-build-profile ()
@@ -905,7 +904,7 @@ With passed universal argument it visits file in other window."
 (defun yb-todo ()
   "Go to end of browser todo list."
   (interactive)
-  (find-file (expand-file-name "~/workspace/ya/todo.org"))
+  (find-file (concat yb-notes-path "todo.org"))
   (goto-char (point-max)))
 
 (defun yb-move-file-diff ()
