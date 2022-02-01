@@ -69,7 +69,7 @@ there's a region, all lines that region covers will be duplicated."
   "Return end position (point) of line number L."
   (save-excursion
     (goto-char (point-min))
-    (forward-line l)
+    (forward-line (- l 1))
     (beginning-of-line)
     (point)))
 
@@ -77,7 +77,7 @@ there's a region, all lines that region covers will be duplicated."
   "Return beginning position (point) of line number L."
   (save-excursion
     (goto-char (point-min))
-    (forward-line l)
+    (forward-line (- l 1))
     (end-of-line)
     (point)))
 
