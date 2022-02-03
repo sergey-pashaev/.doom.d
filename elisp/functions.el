@@ -17,6 +17,12 @@
   "Update `org-agenda-files' with list of org files from DIRS."
   (setq org-agenda-files (psv/get-org-files psv/org-agenda-dirs)))
 
+(defun psv/flush-lines-with-selected-region (beg end)
+  (interactive "r")
+  (save-excursion
+    (let ((str (regexp-quote (buffer-substring-no-properties beg end))))
+      (flush-lines str (point-min) (point-max)))))
+
 (defun psv/duplicate-current-line-or-region (arg)
   "Duplicates the current line or region ARG times.
 If there's no region, the current line will be duplicated.  However, if
