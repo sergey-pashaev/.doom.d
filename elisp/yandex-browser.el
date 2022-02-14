@@ -740,7 +740,7 @@ With passed universal argument it visits file in other window."
      ;; then path to current file
      ((and filepath (string-match ticket-rx filepath)) (match-string 0 filepath))
      ;; then current git branch might help
-     ((and (string-match ticket-rx branch)) (match-string 0 branch))
+     ((and branch (string-match ticket-rx branch)) (match-string 0 branch))
      ;; ask user if nothing found
      (t (let* ((ticket (yb-complete-dir yb-notes-path "Ticket?")))
           ticket)))))
