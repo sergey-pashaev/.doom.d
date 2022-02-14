@@ -104,7 +104,7 @@
   (cprg-set-globs "_t_ests"        '("*unittest.cc" "*test.cc" "*tests.cc"))
   (cprg-set-globs "bro_w_sertests" '("*browsertest.cc" "*browsertests.cc"))
   (cprg-set-globs "_m_ojom"        '("*.mojom"))
-  (cprg-set-globs "_b_uild"        '("*.gn" "DEPS" "*.gni"))
+  (cprg-set-globs "_b_uild"        '("*.gn" "*.gni" "*.grd" "*.grdp" "*.spec" "DEPS"))
   (cprg-set-globs "_y_aml"         '("*.yaml" "*.yml"))
   (cprg-set-globs "_j_ava"         '("*.java" "*.kt"))
   (cprg-set-globs "_p_ython"       '("*.py"))
