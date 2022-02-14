@@ -1,0 +1,5 @@
+#key : les
+#name : log error string
+#contributor: pashaev.sergey@gmail.com
+# --
+LOG(ERROR) << ' ' << __func__ << " $0";
