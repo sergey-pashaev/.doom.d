@@ -1,0 +1,5 @@
+# key: sto
+# name: sto
+# --
+#+OPTIONS: toc:nil ^:nil
+# https://st.yandex-team.ru/`(file-name-sans-extension (file-name-nondirectory buffer-file-name))`
