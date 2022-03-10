@@ -114,6 +114,7 @@
   (cprg-set-globs "js_o_n"         '("*.json"))
   (cprg-set-globs "_h_tml"         '("*.html" "*.js" "*.css"))
   (cprg-set-globs "_g_radle"       '("*.gradle"))
+  (cprg-set-globs "_f_eatures"     '("*features.cc" "*switches.cc"))
   (cprg-load-hydra))
 
 
