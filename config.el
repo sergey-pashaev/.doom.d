@@ -38,8 +38,6 @@
 ;; Show some lines below "last" line before start scrolling.
 (setq scroll-margin 5)
 
-(setq c-default-style "linux")
-
 ;; Show buffer filepath at frame title.
 (setq frame-title-format
       '((:eval (if (buffer-file-name)
@@ -50,10 +48,6 @@
 (setq save-place-limit 500)
 (setq recentf-max-saved-items 1000)
 
-;; TODO: Don't favor vertical splits over horizontal
-;; (setq split-width-threshold nil)
-;; (setq split-height-threshold nil)
-
 ;;; Load external files.
 (load! "elisp/functions")
 (load! "elisp/keys")
@@ -63,6 +57,8 @@
 ;; (psv/update-org-agenda-files)
 
 ;;; Packages configurations:
+
+;; Trim whitespace only in changed regions.
 (use-package ws-butler
   :config
   (setq ws-butler-keep-whitespace-before-point nil))
@@ -129,9 +125,7 @@
 ;; russian input indication
 (defun psv/update-cursor-color ()
   "Change cursor color with keyboard layout change."
-  (set-cursor-color (if current-input-method
-                        "red"
-                      "black")))
+  (set-cursor-color (if current-input-method "red" "black")))
 
 (when (display-graphic-p)
   (add-hook 'post-command-hook 'psv/update-cursor-color))
@@ -141,7 +135,7 @@
   (interactive)
   (if (string= current-input-method "russian-computer")
       (deactivate-input-method)
-      (set-input-method "russian-computer")))
+    (set-input-method "russian-computer")))
 
 
 ;; Browse with yandex-browser
@@ -158,12 +152,12 @@ used."
   (setq url (browse-url-encode-url url))
   (let* ((process-environment (browse-url-process-environment)))
     (apply 'start-process
-       (concat *psv/yandex-browser-program* " " url)
+           (concat *psv/yandex-browser-program* " " url)
            nil
-       *psv/yandex-browser-program*
-       (append
-        *psv/browser-url-yandex-browser-arguments*
-        (list url)))))
+           *psv/yandex-browser-program*
+           (append
+            *psv/browser-url-yandex-browser-arguments*
+            (list url)))))
 
 (setq browse-url-browser-function 'psv/browse-url-yandex-browser)
 
