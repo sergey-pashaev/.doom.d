@@ -20,6 +20,7 @@
 (map! "C-<f12>" #'toggle-truncate-lines)
 (map! "<f5>"    #'yb-goto-global-notes)
 (map! "C-x t t" #'psv/ert-silently)
+(map! "C-M-\\"  #'clang-format-region)
 
 ;; Unbound dangerous keys.
 (global-unset-key (kbd "C-x C-c"))
