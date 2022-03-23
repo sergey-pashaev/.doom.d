@@ -10,6 +10,20 @@
 (require 'subr-x)
 (require 'magit)
 
+(defun yb-find-file ()
+  (interactive)
+  (let ((fname (thing-at-point 'filename))
+        (root (yb-select-project)))
+    (if fname
+        (progn
+          (find-name-dired
+           root
+           (read-string "Filename: " fname))))))
+
+(defun yb-select-project ()
+  (let ((path (expand-file-name "~/workspace/ya/")))
+    (concat path (yb-complete-dir path "Project:"))))
+
 (require 'ox-md)
 
 (org-export-define-derived-backend 'st 'md
