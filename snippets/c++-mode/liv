@@ -1,5 +1,0 @@
-#key : liv
-#name : log info variable
-#contributor: pashaev.sergey@gmail.com
-# --
-LOG(INFO) << this << ' ' << __func__ << " ${1:var}: " << $1;
