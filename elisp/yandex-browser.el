@@ -971,8 +971,8 @@ With passed universal argument it visits file in other window."
               (user-error (format "Move diff failed, rc=%s" rc)))))
       (user-error (format "file [%s] doesn't exist" to-path)))))
 
-(defun yb-x-at-point ()
-  "Run yb x script at current point location."
+(defun yb-x-add-entity-at-point ()
+  "Save entity at point to yb x state."
   (interactive)
   (let* ((abs-path (buffer-file-name))
          (line (line-number-at-pos))
@@ -1099,7 +1099,7 @@ With passed universal argument it visits file in other window."
   ("t" yb-trace-action-hydra/body "trace" :exit t)
   ("v" yb-visit-file-other-project "visit other project")
   ("w" yb-goto-ticket-wiki "ticket wiki")
-  ("x" yb-x-at-point "x? at point")
+  ("x" yb-x-add-entity-at-point "x? at point")
   )
 
 (bind-key "C-c y" 'yb-tools/body)
