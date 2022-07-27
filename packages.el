@@ -57,6 +57,7 @@
 (package! py-autopep8)
 (package! ledger-mode)
 (package! clipetty)
+(package! jinja2-mode)
 
 (package! undo-tree :disable t)
 (package! volatile-highlights :disable t)
