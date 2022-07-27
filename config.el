@@ -96,7 +96,7 @@
 (use-package cprg
   :init
   (require 'cprg)
-  (cprg-set-globs "_c_++"          '("*.h" "*.c" "*.cc" "*.cpp" "*.mm"))
+  (cprg-set-globs "_c_++"          '("*.h" "*.c" "*.cc" "*.cpp" "*.mm" "*.m"))
   (cprg-set-globs "_h_eaders"      '("*.h"))
   (cprg-set-globs "_t_ests"        '("*test.cc" "*tests.cc"))
   (cprg-set-globs "_m_ojom"        '("*.mojom"))
