@@ -49,6 +49,10 @@
 ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
 ;(unpin! t)
 
+; https://github.com/doomemacs/doomemacs/issues/6583
+; https://github.com/magit/magit/issues/4730
+(package! compat :pin "cc1924fd8b3f9b75b26bf93f084ea938c06f9615")
+
 (package! google-translate)
 (package! clang-format)
 (package! cprg :recipe (:host github :repo "sergey-pashaev/cprg"))
