@@ -99,6 +99,7 @@
   (cprg-set-globs "_c_++"          '("*.h" "*.c" "*.cc" "*.cpp" "*.mm" "*.m"))
   (cprg-set-globs "_h_eaders"      '("*.h"))
   (cprg-set-globs "_t_ests"        '("*test.cc" "*tests.cc"))
+  (cprg-set-globs "_u_nittests"    '("*unittest.cc" "*unittests.cc"))
   (cprg-set-globs "_m_ojom"        '("*.mojom"))
   (cprg-set-globs "_b_uild"        '("*.gn" "*.gni" "*.grd" "*.grdp" "*.spec" "DEPS"))
   (cprg-set-globs "_y_aml"         '("*.yaml" "*.yml"))
