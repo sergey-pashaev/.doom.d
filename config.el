@@ -264,3 +264,5 @@ used."
 (defun psv/ert-silently ()
   (interactive)
   (ert t))
+
+(setq comint-buffer-maximum-size 20480)
