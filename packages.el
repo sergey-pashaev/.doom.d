@@ -62,6 +62,7 @@
 (package! ledger-mode)
 (package! clipetty)
 (package! jinja2-mode)
+(package! exec-path-from-shell)
 
 (package! undo-tree :disable t)
 (package! volatile-highlights :disable t)

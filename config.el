@@ -265,4 +265,10 @@ used."
   (interactive)
   (ert t))
 
+;; exec-path-from-shell
+(use-package exec-path-from-shell
+  :ensure t
+  :config
+  (exec-path-from-shell-initialize))
+
 (setq comint-buffer-maximum-size 20480)
