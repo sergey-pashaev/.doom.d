@@ -63,6 +63,7 @@
 (package! clipetty)
 (package! jinja2-mode)
 (package! exec-path-from-shell)
+(package! unicode-fonts)
 
 (package! undo-tree :disable t)
 (package! volatile-highlights :disable t)

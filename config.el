@@ -272,3 +272,8 @@ used."
   (exec-path-from-shell-initialize))
 
 (setq comint-buffer-maximum-size 20480)
+
+(use-package unicode-fonts
+  :ensure t
+  :init
+  (unicode-fonts-setup))
