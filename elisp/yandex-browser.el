@@ -1082,6 +1082,14 @@ With passed universal argument it visits file in other window."
            (name (read-string "Name: ")))
       (write-file (concat notes-dir name)))))
 
+(defun yb-rg-filter ()
+  "Filter rg results buffer on windows."
+  (interactive)
+  (read-only-mode -1)
+  (flush-lines "(os error 3)")
+  (flush-lines "test.cc")
+  (read-only-mode +1))
+
 ;; hydra
 (defhydra yb-tools (:hint t)
   "yandex-browser tools"
