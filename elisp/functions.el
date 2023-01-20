@@ -164,6 +164,20 @@ there's a region, all lines that region covers will be duplicated."
             map)
   (yb-blame-gap-init))
 
+(defun psv/black ()
+  "Run black on current file."
+  (interactive)
+  (let* ((fpath (buffer-file-name))
+         (cmd (format "python3 -m black %s" fpath)))
+    (compilation-start cmd)))
+
+(defun psv/mypy ()
+  "Run mypy on current file."
+  (interactive)
+  (let* ((fpath (buffer-file-name))
+         (cmd (format "python3 -m mypy %s" fpath)))
+    (compilation-start cmd)))
+
 (provide 'yb-blame-gap-mode)
 
 (provide 'functions)
