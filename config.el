@@ -219,12 +219,7 @@ used."
   (interactive)
   (setq-local helm-dash-docsets '("Python 3")))
 
-(defun psv/helm-dash-bash-doc ()
-  "Enable bash dash docset for shell buffers."
-  (interactive)
-  (setq-local helm-dash-docsets '("Bash")))
-
-(defconst psv/helm-dash-docsets '("C++" "Python 3" "Bash")
+(defconst psv/helm-dash-docsets '("C++" "Python 3")
   "My default docset list.")
 
 (use-package helm-dash
@@ -233,7 +228,6 @@ used."
   (setq helm-dash-common-docsets psv/helm-dash-docsets)
   (add-hook 'c++-mode-hook 'psv/helm-dash-cpp-doc)
   (add-hook 'python-mode-hook 'psv/helm-dash-python-doc)
-  (add-hook 'sh-mode-hook 'psv/helm-dash-bash-doc)
   :bind
   ("C-c ?" . helm-dash-at-point))
 
