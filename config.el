@@ -6,9 +6,10 @@
 (setq user-mail-address "pashaev.sergey@gmail.com"
       user-full-name "Sergey Pashaev")
 
-(setq doom-font (font-spec :family "Liberation Mono" :size 14))
+(setq doom-font (font-spec :family "Consolas" :size 20))
 (setq doom-theme 'doom-solarized-light)
 (setq doom-inhibit-indent-detection t)
+(set-fontset-font "fontset-default" 'cyrillic "Consolas")
 
 (setq org-directory "~/org/")
 
@@ -126,7 +127,7 @@
 ;; russian input indication
 (defun psv/update-cursor-color ()
   "Change cursor color with keyboard layout change."
-  (set-cursor-color (if current-input-method "red" "black")))
+  (set-cursor-color (if current-input-method "red" "dark grey")))
 
 (when (display-graphic-p)
   (add-hook 'post-command-hook 'psv/update-cursor-color))
