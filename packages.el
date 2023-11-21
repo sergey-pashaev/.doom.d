@@ -109,3 +109,7 @@
 (package! mips-mode :disable t)
 (package! haxor-mode :disable t)
 (package! flycheck-plantuml :disable t)
+
+
+(package! doom-snippets :ignore t)
+(package! yasnippet-snippets)

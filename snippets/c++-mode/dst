@@ -3,4 +3,4 @@
 #contributor: pashaev.sergey@gmail.com
 # --
 base::debug::StackTrace st;
-DLOG(INFO) << this << ' ' << __func__ << '\n' << st.ToString();
+LOG(ERROR) << this << ' ' << __func__ << '\n' << st.ToString();

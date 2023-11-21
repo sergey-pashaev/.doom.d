@@ -6,10 +6,8 @@
 (setq user-mail-address "pashaev.sergey@gmail.com"
       user-full-name "Sergey Pashaev")
 
-(setq doom-font (font-spec :family "Consolas" :size 20))
-(setq doom-theme 'doom-solarized-light)
+;(setq doom-theme 'doom-solarized-light)
 (setq doom-inhibit-indent-detection t)
-(set-fontset-font "fontset-default" 'cyrillic "Consolas")
 
 (setq org-directory "~/org/")
 
@@ -268,7 +266,12 @@ used."
 
 (setq comint-buffer-maximum-size 20480)
 
-(use-package unicode-fonts
-  :ensure t
-  :init
-  (unicode-fonts-setup))
+;; (use-package unicode-fonts
+;;   :ensure t
+;;   :init
+;;   (unicode-fonts-setup))
+
+(custom-set-variables
+ '(flycheck-python-flake8-executable "python3")
+ '(flycheck-python-pycompile-executable "python3")
+ '(flycheck-python-pylint-executable "python3"))

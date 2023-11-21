@@ -44,7 +44,7 @@
        ;;vterm             ; another terminals in Emacs
 
        :checkers
-       syntax              ; tasing you for every semicolon you forget
+       ;; syntax              ; tasing you for every semicolon you forget
        ;;spell             ; tasing you for misspelling mispelling
        ;;grammar           ; tasing grammar mistake every you make
 
@@ -72,7 +72,7 @@
         ;;+pandoc          ; export-with-pandoc support
         ;;+pomodoro        ; be fruitful with the tomato technique
         ;;+present
-        +roam
+        ;; +roam
         )        ; using org-mode for presentations
        plantuml          ; diagrams for confusing people more
        python       ; beautiful is better than ugly

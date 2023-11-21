@@ -820,7 +820,10 @@ With passed universal argument it visits file in other window."
   "Select build profile of current project."
   (interactive)
   (let* ((root (projectile-project-root))
-         (out-dir (concat root "src/out/")))
+         (out-dir (concat root (if (eq (yb-what-project) 'yandex-browser)
+                                   "src/" "")
+                                   "out/")))
+    (message out-dir)
     (if (f-exists? out-dir)
         (concat out-dir (yb-complete-dir out-dir
                                          "Profile:")))))
@@ -829,12 +832,17 @@ With passed universal argument it visits file in other window."
   "Compile current file."
   (interactive)
   (let* ((build-dir (yb-select-build-profile))
-         (path (substring (yb-buffer-relative-path) (length "src/")))
+         (path (substring (yb-buffer-relative-path) (if (eq (yb-what-project) 'yandex-browser)
+                                                        (length "src/")
+                                                      0)))
+         ; (cmd (format "%s -i all -k 10000 -C %s ../../%s^"
          (cmd (format "%s -i all -k 10000 -C %s ../../%s^"
                       yb-yakuza-path
                       build-dir
                       path)))
-    (let ((default-directory (concat (projectile-project-root) "src/")))
+    (let ((default-directory (concat (projectile-project-root) (if (eq (yb-what-project) 'yandex-browser)
+                                                                   "src/"
+                                                                 ""))))
       (compilation-start cmd))))
 
 (defun yb-compile-single-file-cmd ()
